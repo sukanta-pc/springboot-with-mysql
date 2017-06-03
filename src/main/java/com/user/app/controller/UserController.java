@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.user.app.entity.User;
+import com.user.app.model.ResponseVO;
 import com.user.app.model.UserVO;
 import com.user.app.repository.UserRepository;
 
@@ -33,7 +34,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT) 
-	public @ResponseBody String addNewUser (@RequestBody UserVO userVo) {
+	public @ResponseBody ResponseVO addNewUser (@RequestBody UserVO userVo) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 		
@@ -42,11 +43,11 @@ public class UserController {
 		n.setEmail(userVo.getEmail());
 		n.setProfession(userVo.getProfession());
 		userRepository.save(n);
-		return "Saved";
+		return new ResponseVO(true,"New user Created successfully");
 	}
 	
 	@RequestMapping(method=RequestMethod.POST) 
-	public @ResponseBody String updateUser (@RequestBody UserVO userVo) {
+	public @ResponseBody ResponseVO updateUser (@RequestBody UserVO userVo) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 		
@@ -56,17 +57,17 @@ public class UserController {
 		n.setEmail(userVo.getEmail());
 		n.setProfession(userVo.getProfession());
 		userRepository.save(n);
-		return "Updated";
+		return new ResponseVO(true,"User data updated successfully");
 	}
 	
 	@RequestMapping(path="/{id}", method=RequestMethod.DELETE) 
-	public @ResponseBody String deleteUser (@PathVariable Long id) {
+	public @ResponseBody ResponseVO deleteUser (@PathVariable Long id) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 		
 		User n = new User();
 		n.setId(id);
 		userRepository.delete(n);
-		return "Deleted";
+		return new ResponseVO(true,"User deleted successfully");
 	}
 }
