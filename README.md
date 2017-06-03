@@ -191,7 +191,7 @@ The above example does specify GET, PUT, POST, and DELETE. @RequestMapping maps 
 ### Request and Response Value Object
 
 /src/main/java/com/user/app/model/ResponseVO.java
-/src/main/java/com/user/app/model/UserVO.java
+
 
 ```
 package com.user.app.model;
@@ -221,6 +221,8 @@ public class ResponseVO {
 	
 }
 ```
+
+/src/main/java/com/user/app/model/UserVO.java
 ```
 package com.user.app.model;
 
@@ -302,7 +304,7 @@ java -jar target/usermanagement-0.0.1-SNAPSHOT.jar
 The procedure above will create a runnable JAR. You can also opt to build a classic WAR file instead.
 Logging output is displayed. The service should be up and running within a few seconds.
 
-###Test the application
+### Test the application
 
 Now that the application is running, you can test it.
 
