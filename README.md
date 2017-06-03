@@ -314,4 +314,41 @@ Install Postman. [Installing the Postman Chrome App](https://www.getpostman.com/
 
 
  Import the collection file "SpringBootUserDataManagement.postman_collection.json". Click on the ‘Import’ button on the top bar, and paste a URL to the collection, or the collection JSON itself, and click ‘Import’. Find the more details in [Getting started with postman Collections](https://www.getpostman.com/docs/collections)
+ 
+ **Test Results:**
+
+Add User
+
+----------
+
+![Add User](https://github.com/suku19/springboot-with-mysql/blob/master/img/addUser.JPG)
+
+----------
+Get User By ID
+
+----------
+
+![getUserByID](https://github.com/suku19/springboot-with-mysql/blob/master/img/getUserByID.JPG)
+
+----------
+Get All User
+
+----------
+![getAllUser](https://github.com/suku19/springboot-with-mysql/blob/master/img/getAllUser.JPG)
+
+----------
+Update User
+
+----------
+
+![updateUser](https://github.com/suku19/springboot-with-mysql/blob/master/img/updateUser.JPG)
+
+----------
+Delete user by Id
+
+----------
+
+![deleteById](https://github.com/suku19/springboot-with-mysql/blob/master/img/deleteById.JPG)
+
+![deleteById](https://github.com/suku19/springboot-with-mysql/blob/master/img/deleteById.JPG)
 
