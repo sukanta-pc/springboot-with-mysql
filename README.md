@@ -313,7 +313,7 @@ Install Postman. [Installing the Postman Chrome App](https://www.getpostman.com/
 > **Note:** Install Postman. Postman is available as a native app (recommended) for Mac / Windows / Linux, and as a Chrome App. The Postman Chrome app can only run on the Chrome browser. To use the Postman Chrome app, you will first need to install Google Chrome. 
 
 
- Import the collection file "SpringBootUserDataManagement.postman_collection.json". Click on the ‘Import’ button on the top bar, and paste a URL to the collection, or the collection JSON itself, and click ‘Import’. Find the more details in [Getting started with postman Collections](https://www.getpostman.com/docs/collections)
+ Import the collection file "[SpringBootUserDataManagement.postman_collection.json](https://github.com/suku19/springboot-with-mysql/blob/master/SpringBootUserDataManagement.postman_collection.json)". Click on the ‘Import’ button on the top bar, and paste a URL to the collection, or the collection JSON itself, and click ‘Import’. Find the more details in [Getting started with postman Collections](https://www.getpostman.com/docs/collections)
  
  **Test Results:**
 
