@@ -1,5 +1,8 @@
 package com.user.app.model;
-
+/**
+ * @author Sukanta
+ *
+ */
 public class ResponseVO {
 	
 	private boolean success;
