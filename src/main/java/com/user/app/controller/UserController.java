@@ -2,6 +2,7 @@ package com.user.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import com.user.app.entity.User;
 import com.user.app.model.ResponseVO;
 import com.user.app.model.UserVO;
 import com.user.app.repository.UserRepository;
+import com.user.app.util.InputValidator;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,7 +50,9 @@ public class UserController {
 	public @ResponseBody ResponseVO addNewUser (@ApiParam @RequestBody UserVO userVo) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
-		
+		if(!InputValidator.isValidateInput(userVo)){
+			return new ResponseVO(false,"Input data not valid.. ");
+		}
 		User n = new User();
 		n.setName(userVo.getName());
 		n.setEmail(userVo.getEmail());
@@ -56,13 +60,17 @@ public class UserController {
 		userRepository.save(n);
 		return new ResponseVO(true,"New user Created successfully");
 	}
+
+	
 	
 	@RequestMapping(method=RequestMethod.POST) 
 	@ApiOperation(value = "Update user", response = ResponseVO.class)
 	public @ResponseBody ResponseVO updateUser (@ApiParam @RequestBody UserVO userVo) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
-		
+		if(!InputValidator.isValidateInput(userVo)){
+			return new ResponseVO(false,"Input data not valid.. ");
+		}
 		User n = new User();
 		n.setId(userVo.getId());
 		n.setName(userVo.getName());
@@ -77,7 +85,10 @@ public class UserController {
 	public @ResponseBody ResponseVO deleteUser (@ApiParam @PathVariable Long id) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
-		
+		Assert.notNull(id, "Cannot delete entity with id 'null'.");
+		if(null==id){
+			return new ResponseVO(false,"Cannot delete user with id 'null'.");
+		}
 		User n = new User();
 		n.setId(id);
 		userRepository.delete(n);
