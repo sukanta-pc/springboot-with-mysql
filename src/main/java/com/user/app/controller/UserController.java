@@ -67,7 +67,6 @@ public class UserController {
 	public @ResponseBody ResponseVO updateUser (@ApiParam @RequestBody UserVO userVo) {
 		AppLogger.getLogger().info("input data: "+ toStringInput(userVo));
 		//input validation
-		AppLogger.getLogger().info("Input data validation.. isValidId : "+isValidId(userVo.getId())+" // isValidInput"+InputValidator.isValidateInput(userVo));
 		if(isValidId(userVo.getId()) || !InputValidator.isValidateInput(userVo)){
 			AppLogger.getLogger().info("Input data not valid.. ");
 			return new ResponseVO(false,"Input data not valid.. ");
