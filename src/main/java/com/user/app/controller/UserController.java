@@ -1,8 +1,9 @@
 package com.user.app.controller;
 
+import org.apache.commons.lang3.builder.RecursiveToStringStyle;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import com.user.app.entity.User;
 import com.user.app.model.ResponseVO;
 import com.user.app.model.UserVO;
 import com.user.app.repository.UserRepository;
+import com.user.app.util.AppLogger;
 import com.user.app.util.InputValidator;
 
 import io.swagger.annotations.Api;
@@ -34,14 +36,16 @@ public class UserController {
 	@ApiOperation(value = "View a list of available Users", response = Iterable.class)
 	public @ResponseBody Iterable<User> getAllUsers() {
 		// This returns a JSON or XML with the users
-		return userRepository.findAll();
+		Iterable<User> user = userRepository.findAll();
+		AppLogger.getLogger().info("Get all users..");
+		return user;
 	}
 	
 	@RequestMapping(path="/{id}", method=RequestMethod.GET) 
 	@ApiOperation(value = "View of available User based on Id", response = User.class)
 	public @ResponseBody User getUser(@ApiParam @PathVariable long id) {
 		// This returns a JSON or XML with the users
-		
+		AppLogger.getLogger().info("Get user by Id:"+id);
 		return userRepository.findOne(id);
 	}
 	
@@ -50,6 +54,7 @@ public class UserController {
 	public @ResponseBody ResponseVO addNewUser (@ApiParam @RequestBody UserVO userVo) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
+		AppLogger.getLogger().info("input data: "+ toStringInput(userVo));
 		if(!InputValidator.isValidateInput(userVo)){
 			return new ResponseVO(false,"Input data not valid.. ");
 		}
@@ -58,6 +63,7 @@ public class UserController {
 		n.setEmail(userVo.getEmail());
 		n.setProfession(userVo.getProfession());
 		userRepository.save(n);
+		AppLogger.getLogger().info("New user Created successfully");
 		return new ResponseVO(true,"New user Created successfully");
 	}
 
@@ -68,6 +74,7 @@ public class UserController {
 	public @ResponseBody ResponseVO updateUser (@ApiParam @RequestBody UserVO userVo) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
+		AppLogger.getLogger().info("input data: "+ toStringInput(userVo));
 		if(!InputValidator.isValidateInput(userVo)){
 			return new ResponseVO(false,"Input data not valid.. ");
 		}
@@ -77,7 +84,12 @@ public class UserController {
 		n.setEmail(userVo.getEmail());
 		n.setProfession(userVo.getProfession());
 		userRepository.save(n);
+		AppLogger.getLogger().info("User data updated successfully..");
 		return new ResponseVO(true,"User data updated successfully");
+	}
+
+	private String toStringInput(UserVO userVo) {
+		return new ReflectionToStringBuilder(userVo, new RecursiveToStringStyle()).toString();
 	}
 	
 	@RequestMapping(path="/{id}", method=RequestMethod.DELETE)
@@ -85,13 +97,14 @@ public class UserController {
 	public @ResponseBody ResponseVO deleteUser (@ApiParam @PathVariable Long id) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
-		Assert.notNull(id, "Cannot delete entity with id 'null'.");
-		if(null==id){
-			return new ResponseVO(false,"Cannot delete user with id 'null'.");
+		if(null==userRepository.findOne(id)){
+			AppLogger.getLogger().info("User Id Invalid..");
+			return new ResponseVO(false,"User Id Invalid..");
 		}
 		User n = new User();
 		n.setId(id);
 		userRepository.delete(n);
-		return new ResponseVO(true,"User deleted successfully");
+		AppLogger.getLogger().info("User{id:"+id+"} deleted successfully..");
+		return new ResponseVO(true,"User{id:"+id+"} deleted successfully");
 	}
 }

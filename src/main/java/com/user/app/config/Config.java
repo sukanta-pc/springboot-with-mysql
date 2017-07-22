@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import com.user.app.util.AppLogger;
+
 /**
  * @author Sukanta
  *
@@ -25,7 +27,7 @@ public class Config {
     	try {
     		return new CloudFactory().getCloud();
     	} catch ( CloudException ce ) {
-    		//	Not running in cloud environment, return null
+    		AppLogger.getLogger().error("Not running in cloud environment.."+ce);
     		return null;
     	}
     }

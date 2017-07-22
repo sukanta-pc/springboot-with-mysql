@@ -2,11 +2,11 @@ package com.user.app.config;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StopWatch;
+
+import com.user.app.util.AppLogger;
 
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -31,15 +31,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfiguration {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SwaggerConfiguration.class);
-
     /**
      * Swagger Springfox configuration.
      * @return the Swagger Springfox configuration
      */
     @Bean
     public Docket usersApi() {
-    	LOGGER.debug("Starting Swagger");
+    	AppLogger.getLogger().debug("Starting Swagger");
     	StopWatch watch = new StopWatch();
         watch.start();
     	Docket docket =  new Docket(DocumentationType.SWAGGER_2)
@@ -49,7 +47,7 @@ public class SwaggerConfiguration {
                 .build()
                 .apiInfo(metaData());
     	watch.stop();
-    	LOGGER.debug("Started Swagger in {} ms", watch.getTotalTimeMillis());
+    	AppLogger.getLogger().debug("Started Swagger in {} ms:"+ watch.getTotalTimeMillis());
     	return docket;
     }
     private ApiInfo metaData() {
