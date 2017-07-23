@@ -74,17 +74,13 @@ public class UserDataManagementApplicationTests {
 	
 	@Test
 	public void verifyCreateUserMalformedRequest() throws Exception {
-		User user = new User();
-		user.setName("");
-		user.setEmail("jhondao@test.com");
-		user.setProfession("[Software Developer]");
-		String json = new Gson().toJson(user);
+		String json = "{\"name\": \"Jhon Dao\",\"email\": \"jhondao@test.com\",\"profession\": [\"Software Developer\"]}";
 
 		mockMvc.perform(
 				post("/users").accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(status().isNotFound())
-				.andExpect(jsonPath("$.errorCode").value("INPUT.DATA.INVALID"))
-				.andExpect(jsonPath("$.message").value("Input data not valid.."));
+				.andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.errorCode").value("400"))
+				.andExpect(jsonPath("$.message").value("The request could not be understood by the server due to malformed syntax."));
 	}
 	
 	@Test
