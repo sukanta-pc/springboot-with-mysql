@@ -19,6 +19,17 @@ public class User {
     private String email;
     
     private String profession;
+    
+    public User(){
+    	super();
+    }
+    
+    public User(Long id, String name, String email, String profession){
+    	this.id = id;
+    	this.name=name;
+    	this.email=email;
+    	this.profession=profession;
+    }
 
 	public String getProfession() {
 		return profession;

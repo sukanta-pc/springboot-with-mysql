@@ -20,7 +20,7 @@
 			"id": "0d3c515f-0ac1-7758-320e-d5e2c36c1ada",
 			"headers": "",
 			"headerData": [],
-			"url": "http://localhost:8080/users",
+			"url": "{{url}}/users",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -31,7 +31,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496498278122,
+			"time": 1500732373255,
 			"name": "getAllUser",
 			"description": "",
 			"collectionId": "2c7c0a02-7330-c213-21d6-fb3b0af9236d",
@@ -60,12 +60,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1500323736562,
-			"name": "updateUser",
+			"time": 1500827055047,
+			"name": "createUser",
 			"description": "",
 			"collectionId": "2c7c0a02-7330-c213-21d6-fb3b0af9236d",
 			"responses": [],
-			"rawModeData": "{\n  \"id\":1,\n  \"name\": \"Jhon Dao\",\n  \"email\": \"jhondao@test.com\",\n  \"profession\": \"Software Developer\"\n}"
+			"rawModeData": "{\n  \"name\": \"\",\n  \"email\": \"jhondao@test.com\",\n  \"profession\": \"Software Developer\"\n}"
 		},
 		{
 			"id": "23e11a09-53cf-cf5b-a340-21213671c09b",
@@ -90,8 +90,8 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1500323727062,
-			"name": "addData",
+			"time": 1500820995392,
+			"name": "updateUser",
 			"description": "",
 			"collectionId": "2c7c0a02-7330-c213-21d6-fb3b0af9236d",
 			"responses": [
@@ -157,7 +157,7 @@
 					}
 				}
 			],
-			"rawModeData": "{\n  \"name\": \"Jhon Dao\",\n  \"email\": \"jhondao@test.com\",\n  \"profession\": \"Software Engineer\"\n}"
+			"rawModeData": "{\n  \"id\":\"\",\n  \"name\": \"Jhon Dao\",\n  \"email\": \"jhondao@test.com\",\n  \"profession\": \"Software Engineer\"\n}"
 		},
 		{
 			"id": "29b997ea-62ed-34ce-4584-e6d4a6f1981b",
