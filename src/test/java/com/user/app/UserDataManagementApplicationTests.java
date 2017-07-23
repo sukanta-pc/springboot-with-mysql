@@ -73,6 +73,21 @@ public class UserDataManagementApplicationTests {
 	}
 	
 	@Test
+	public void verifyCreateUserMalformedRequest() throws Exception {
+		User user = new User();
+		user.setName("");
+		user.setEmail("jhondao@test.com");
+		user.setProfession("[Software Developer]");
+		String json = new Gson().toJson(user);
+
+		mockMvc.perform(
+				post("/users").accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON).content(json))
+				.andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.errorCode").value("INPUT.DATA.INVALID"))
+				.andExpect(jsonPath("$.message").value("Input data not valid.."));
+	}
+	
+	@Test
 	public void verifyUserAllList() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/users").accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk())
@@ -147,6 +162,19 @@ public class UserDataManagementApplicationTests {
 		.andDo(print());
 	}
 	
+	@Test
+	public void verifyAppEnvironment() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.isCloudEnvironment").exists())
+		.andExpect(jsonPath("$.serverTime").exists())
+		.andDo(print());
+	}
 	
-
+	@Test
+	public void verifyEnvironmentDetails() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/env").accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
 }

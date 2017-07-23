@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.user.app.util.AppLogger;
 /**
  * @author Sukanta
  *
@@ -31,19 +32,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 @Controller
 public class AppController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(AppController.class);
-
-	
 	@Autowired (required=false) Cloud cloud;
 
 	/**
 	 * Gets basic environment information.  This is the application's
 	 * default action.
-	 * @param model The model for this action.
-	 * @return The path to the view.
-	 * @throws IOException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * 
+	 * @return
+	 * @throws Exception
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> appIndex() throws Exception {
@@ -64,11 +60,11 @@ public class AppController {
 		} else {
 			appConfig.put("isCloudEnvironment",true);
 			appConfig.put("vcapApplication", cloud.getApplicationInstanceInfo().getProperties());
-			logger.info("VCAP_SERVICES [{}] ", vcapServices);
-			logger.info("VCAP_APPLICATION [{}] ", System.getenv("VCAP_APPLICATION"));
+			AppLogger.getLogger().info("VCAP_SERVICES [{}] "+ vcapServices);
+			AppLogger.getLogger().info("VCAP_APPLICATION [{}] "+ System.getenv("VCAP_APPLICATION"));
 		}
 		
-		logger.info("Current date and time = [{}], port = [{}].", serverTime, port);
+		AppLogger.getLogger().info("Current date and time = [{"+serverTime+"}], port = [{"+port+"}].");
 
 		return appConfig;
 	}
@@ -90,7 +86,7 @@ public class AppController {
 	@RequestMapping(value = "/kill", method = RequestMethod.GET)
 	public void kill() {
 		
-		logger.warn("*** The system is shutting down. ***");
+		AppLogger.getLogger().warn("*** The system is shutting down. ***");
 		System.exit(-1);
 		
 	}
