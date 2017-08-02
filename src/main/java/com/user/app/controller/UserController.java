@@ -29,6 +29,7 @@ import io.swagger.annotations.ApiParam;
  * UserController exposed service for user data CRUD operation
  *
  */
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller    
 @RequestMapping(path="/users") 
 @Api(value="usermanagement", description="Operations pertaining to users data management")
@@ -93,6 +94,11 @@ public class UserController {
 		AppLogger.getLogger().info("User{id:"+id+"} deleted successfully..");
 		return new ResponseEntity<ResponseVO>(new ResponseVO(true,"User has been deleted"),HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "*",method = RequestMethod.OPTIONS)
+        public ResponseEntity handle() {
+           return new ResponseEntity(HttpStatus.OK);
+       }
 
 	private boolean isValidId(Long id) {
 		boolean isValidUserId = (id==null?true:null==userService.getUserById(id));
